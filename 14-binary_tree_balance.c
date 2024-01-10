@@ -1,45 +1,40 @@
 #include "binary_trees.h"
-/**
- * binary_tree_height - function that measures the height of a binary tree
- * @tree: pointer to root node of tree
- * Return: height of tree (successful) NULL (failure)
- */
-int binary_tree_height(const binary_tree_t *tree)
-{
-	int count, l_height, r_height;
 
-	count = 0;
+/**
+ * binary_tree_height - Measure the height of a binary tree
+ * @tree: A pointer to the root node of the tree to measure the height
+ *
+ * Return: Height of the tree, 0 if tree is NULL
+ */
+size_t binary_tree_height(const binary_tree_t *tree)
+{
+	size_t left_height, right_height;
 
 	if (tree == NULL)
-		return (count);
-	if (!tree->left && !tree->right)
-	{
-		count = 0;
-		return (count);
-	}
-	l_height = binary_tree_height(tree->left);
-	r_height = binary_tree_height(tree->right);
-	if (l_height > r_height)
-		count = l_height + 1;
-	else
-		count = r_height + 1;
-	return (count);
+	return (0);
+
+	left_height = binary_tree_height(tree->left);
+	right_height = binary_tree_height(tree->right);
+
+	return ((left_height > right_height ? left_height : right_height) + 1);
 }
+
 /**
- * binary_tree_balance - function that measures the balance factor of tree
- * @tree: pointer to root node
- * Return: balance factor (success) or 0 (failure)
+ * binary_tree_balance - Measure the balance factor of a binary tree
+ * @tree: A pointer to the root node of the tree to measure the balance factor
+ *
+ * Return: Balance factor of the tree, 0 if tree is NULL
  */
 int binary_tree_balance(const binary_tree_t *tree)
 {
-	int balance = 0, height_l = 0, height_r = 0;
+	int left_height, right_height;
 
 	if (tree == NULL)
-		return (balance);
-	if (tree->left != NULL)
-		height_l = binary_tree_height(tree->left) + 1;
-	if (tree->right != NULL)
-		height_r = binary_tree_height(tree->right) + 1;
-	balance = height_l - height_r;
-	return (balance);
+	return (0);
+
+	left_height = binary_tree_height(tree->left);
+	right_height = binary_tree_height(tree->right);
+
+	return (left_height - right_height);
 }
+
